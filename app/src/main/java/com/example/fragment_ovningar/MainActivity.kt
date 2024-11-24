@@ -1,6 +1,7 @@
 package com.example.fragment_ovningar
 
 import android.os.Bundle
+import android.widget.LinearLayout
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -16,5 +17,31 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        val appetizerOne = findViewById<LinearLayout>(R.id.appetizer1)
+        val appetizerTwo = findViewById<LinearLayout>(R.id.appetizer2)
+
+        appetizerOne.setOnClickListener {
+            displayAppetizerOne()
+        }
+
+        appetizerTwo.setOnClickListener {
+            displayAppetizerTwo()
+        }
+    }
+
+    fun displayAppetizerOne() {
+        val fragment = AppetizerOneFragment()
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.container, fragment)
+        transaction.commit()
+
+    }
+
+    fun displayAppetizerTwo() {
+        val fragment = AppetizerTwoFragment()
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.container, fragment)
+        transaction.commit()
     }
 }
