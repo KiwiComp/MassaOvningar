@@ -6,6 +6,9 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,16 +24,31 @@ class MainActivity : AppCompatActivity() {
         val appetizerOne = findViewById<LinearLayout>(R.id.appetizer1)
         val appetizerTwo = findViewById<LinearLayout>(R.id.appetizer2)
 
-        appetizerOne.setOnClickListener {
+        /*appetizerOne.setOnClickListener {
             displayAppetizerOne()
         }
 
         appetizerTwo.setOnClickListener {
             displayAppetizerTwo()
-        }
+        }*/
+
+        val pagerAdapter = PagerAdapter(this)
+        val vpContainer = findViewById<ViewPager2>(R.id.vp_container)
+        vpContainer.adapter = pagerAdapter
+
+        val tabLayout = findViewById<TabLayout>(R.id.tl_tabs_food)
+
+        TabLayoutMediator(tabLayout, vpContainer) { tab, position ->
+            when (position) {
+                0 -> tab.text = "Appetizers"
+                1 -> tab.text = "Main courses"
+                2 -> tab.text = "Desserts"
+            }
+        } .attach()
+
     }
 
-    fun displayAppetizerOne() {
+   /* fun displayAppetizerOne() {
         val fragment = AppetizerOneFragment()
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.container, fragment)
@@ -43,5 +61,5 @@ class MainActivity : AppCompatActivity() {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.container, fragment)
         transaction.commit()
-    }
+    }*/
 }
